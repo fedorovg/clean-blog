@@ -45,7 +45,7 @@ namespace Blog.Application.Posts.Queries
         public List<PostListItemVm> Posts { get; set; }
     }
 
-    public class PostListItemVm : IMapFrom<Post>
+    public class PostListItemVm : IMapped<Post>
     {
         public int Id { get; set; }
         public string Title { get; set; }

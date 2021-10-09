@@ -40,7 +40,7 @@ namespace Blog.Application.Posts.Queries
         }
     }
 
-    public class PostDetailsVm : IMapFrom<Post>
+    public class PostDetailsVm : IMapped<Post>
     {
         public int Id { get; set; }
         public string Title { get; set; }

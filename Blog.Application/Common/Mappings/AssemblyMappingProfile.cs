@@ -15,7 +15,7 @@ namespace Blog.Application.Common.Mappings
         private void CreateMappingFromAssembly(Assembly assembly)
         {
             var isMapFrom = new Func<Type, bool>(i =>
-                i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom<>));
+                i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapped<>));
 
             var mapTypes = assembly.GetExportedTypes()
                 .Where(type => type.GetInterfaces().Any(isMapFrom));
@@ -28,7 +28,7 @@ namespace Blog.Application.Common.Mappings
 
                 // Get method from the instance, if it's null use the default implementation  from the interface. 
                 var method = type.GetMethod("Map") ??
-                             typeof(IMapFrom<>).MakeGenericType(genericType).GetMethod("Map");
+                             typeof(IMapped<>).MakeGenericType(genericType).GetMethod("Map");
 
                 // method can not be null, because type does implement the interface and it has a default implementation
                 method!.Invoke(instance, new object[] {this});
