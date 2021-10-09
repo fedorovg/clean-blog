@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Blog.Api.Middleware;
 using Blog.Application;
 using Blog.Application.Common.Mappings;
 using Blog.Persistence;
@@ -26,6 +27,7 @@ namespace Blog.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
             services.AddAutoMapper(config =>
             {
                 config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
@@ -50,11 +52,10 @@ namespace Blog.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCustomExceptionsMiddleware();
             app.UseRouting();
             app.UseHttpsRedirection();
             app.UseCors("AllowAll");
-
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
