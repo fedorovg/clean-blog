@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Blog.Api.Models.Posts;
@@ -34,7 +35,7 @@ namespace Blog.Api.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult<PostDetailsVm>> GetPostDetails(int id)
         {
-            var query = new GetPostDetailsQuery() {Id = id, UserId = 1};
+            var query = new GetPostDetailsQuery() {Id = id, UserId = Guid.Empty};
             var postDetails = await _mediator.Send(query);
             return Ok(postDetails);
         }
@@ -43,7 +44,7 @@ namespace Blog.Api.Controllers
         public async Task<IActionResult> CreatePost([FromBody] CreatePostDto createPostDto)
         {
             var command = _mapper.Map<CreatePostDto, CreatePostCommand>(createPostDto);
-            command.UserId = 1;
+            command.UserId = Guid.Empty;
             var createdPostId = await _mediator.Send(command);
             return Created(Url.Action(nameof(GetPostDetails), new {id = createdPostId}), createdPostId);
         }
@@ -53,7 +54,7 @@ namespace Blog.Api.Controllers
         {
             var command = _mapper.Map<UpdatePostDto, UpdatePostCommand>(updatePostDto);
             command.Id = id;
-            command.UserId = 1;
+            command.UserId = Guid.Empty;
             await _mediator.Send(command);
             return NoContent();
         }
@@ -61,7 +62,7 @@ namespace Blog.Api.Controllers
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeletePost(int id)
         {
-            var command = new DeletePostCommand() {Id = id, UserId = 1};
+            var command = new DeletePostCommand() {Id = id, UserId = Guid.Empty};
             await _mediator.Send(command);
             return NoContent();
         }

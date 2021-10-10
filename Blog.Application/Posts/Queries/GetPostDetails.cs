@@ -14,7 +14,7 @@ namespace Blog.Application.Posts.Queries
     public class GetPostDetailsQuery : IRequest<PostDetailsVm>
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
     }
 
     public class GetPostDetailsQueryHandler : IRequestHandler<GetPostDetailsQuery, PostDetailsVm>
@@ -47,6 +47,6 @@ namespace Blog.Application.Posts.Queries
         public string Content { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

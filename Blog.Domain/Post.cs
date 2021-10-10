@@ -9,6 +9,6 @@ namespace Blog.Domain
         public string Content { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

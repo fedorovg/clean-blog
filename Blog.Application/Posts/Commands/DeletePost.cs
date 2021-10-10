@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Blog.Application.Common.Exceptions;
@@ -10,7 +11,7 @@ namespace Blog.Application.Posts.Commands
     public class DeletePostCommand : IRequest
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
     }
 
     public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand>
