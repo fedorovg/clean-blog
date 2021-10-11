@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using Blog.Api.Middleware;
 using Blog.Application;
@@ -44,6 +45,7 @@ namespace Blog.Api
                     policy.AllowAnyOrigin();
                 });
             });
+            services.AddSwaggerGen();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -52,6 +54,13 @@ namespace Blog.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.RoutePrefix = "";
+                options.SwaggerEndpoint("swagger/v1/swagger.json", "Blog");
+            });
             app.UseCustomExceptionsMiddleware();
             app.UseRouting();
             app.UseHttpsRedirection();
