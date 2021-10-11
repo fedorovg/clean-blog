@@ -8,6 +8,8 @@ namespace Blog.Application.Interfaces
     public interface IBlogDbContext
     {
         DbSet< Post> Posts { get; set; }
+        DbSet<Comment> Comments { get; set; }
+
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

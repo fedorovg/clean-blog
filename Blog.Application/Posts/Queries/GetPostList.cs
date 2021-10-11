@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -14,7 +15,6 @@ namespace Blog.Application.Posts.Queries
 {
     public class GetPostListQuery : IRequest<PostListVm>
     {
-        public int UserId { get; set; }
     }
 
     public class GetPostListQueryHandler : IRequestHandler<GetPostListQuery, PostListVm>
