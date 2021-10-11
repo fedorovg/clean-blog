@@ -20,7 +20,7 @@ namespace Blog.Tests.Common
             var options = new DbContextOptionsBuilder<BlogDbContext>()
                 .UseSqlite(CreateInMemoryDatabase())
                 .Options;
-            
+
             var context = new BlogDbContext(options);
             context.Database.EnsureCreated();
             context.Posts.AddRange(
@@ -46,6 +46,29 @@ namespace Blog.Tests.Common
                     UserId = User1Id
                 }
             );
+            context.Comments.AddRange(
+                new Comment()
+                {
+                    Text = "comment1",
+                    Created = DateTime.Now,
+                    PostId = 1,
+                    UserId = User2Id
+                },
+                new Comment()
+                {
+                    Text = "comment2",
+                    Created = DateTime.Now,
+                    PostId = 1,
+                    UserId = User2Id
+                },
+                new Comment()
+                {
+                    Text = "comment3",
+                    Created = DateTime.Now,
+                    PostId = 1,
+                    UserId = User2Id
+                }
+            );
             context.SaveChanges();
             return context;
         }
@@ -55,6 +78,7 @@ namespace Blog.Tests.Common
             context.Database.EnsureDeleted();
             context.Dispose();
         }
+
         private static DbConnection CreateInMemoryDatabase()
         {
             var connection = new SqliteConnection("Filename=:memory:");
